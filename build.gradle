@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://repository.activeeon.com/content/groups/proactive/' }
+}
+
+dependencies {
+    compile 'org.jvnet.winp:winp:1.23-proactive'
+    compile 'net.java.dev.jna:jna:4.1.0'
+    compile 'commons-io:commons-io:2.4'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.jayway.awaitility:awaitility:1.6.3'
+}
