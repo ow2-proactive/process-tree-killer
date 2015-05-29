@@ -12,6 +12,7 @@ import java.util.concurrent.Callable;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static org.junit.Assert.*;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 
@@ -88,6 +89,8 @@ public class ProcessTreeTest {
 
     @Test
     public void killProcessTree_EnvironmentVariables_Windows() throws Exception {
+        assumeTrue(isWindowsOS());
+
         Map<String, String> processTreeKillerCookie =
                 Collections.singletonMap("PROCESS_TREE_KILLER_COOKIE", "42");
 
