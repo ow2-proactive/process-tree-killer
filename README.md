@@ -1,5 +1,7 @@
 # process-tree-killer
 
+[![Build Status](http://jenkins.activeeon.com/job/process-tree-killer/badge/icon)](http://jenkins.activeeon.com/job/process-tree-killer/)
+
 Process Tree Killer for Java, extracted from Jenkins (commit 9c443c8d5bafd63fce574f6d0cf400cd8fe1f124)
 
 The trick that is used to kill a process including its children is to tag them using an environment variable.
