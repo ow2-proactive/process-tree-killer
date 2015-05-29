@@ -1,7 +1,5 @@
 package org.ow2.proactive.process_tree_killer;
 
-import org.junit.Test;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -10,9 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import org.junit.Test;
+
 import static com.jayway.awaitility.Awaitility.await;
 import static org.junit.Assert.*;
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 
@@ -100,11 +99,11 @@ public class ProcessTreeTest {
 
         // Process tree expected:
         //  cmd.exe
-        //  | conhost.exe
+        //  | conhost.exe (started on Windows 8)
         //  | +-- start /B cmd.exe /C
         //        | +-- ping.exe
         //  | ping.exe
-        List<ProcessTree.OSProcess> children = waitChildProcessRunning(processTreeKillerCookie, 5);
+        List<ProcessTree.OSProcess> children = waitAtLeastNChildProcessRunning(processTreeKillerCookie, 4);
 
         ProcessTree.get().killAll(processTreeKillerCookie);
 
@@ -164,8 +163,8 @@ public class ProcessTreeTest {
         return ProcessTree.get().get(process).getChildren();
     }
 
-    private List<ProcessTree.OSProcess> waitChildProcessRunning(final Map<String, String> environmentVariables,
-                                                                final int expectedNumberOfChildProcesses) {
+    private List<ProcessTree.OSProcess> waitAtLeastNChildProcessRunning(
+      final Map<String, String> environmentVariables, final int atLeastNProcess) {
 
         await().until(new Callable<Boolean>() {
             @Override
@@ -176,7 +175,7 @@ public class ProcessTreeTest {
                         nbProcessFound++;
                     }
                 }
-                return nbProcessFound == expectedNumberOfChildProcesses;
+                return nbProcessFound >= atLeastNProcess;
             }
         });
 
