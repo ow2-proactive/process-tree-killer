@@ -1,5 +1,8 @@
 apply plugin: 'java'
 
+group = 'org.ow2.proactive'
+version = processTreeKillerVersion
+
 repositories {
     mavenCentral()
     maven { url 'http://repository.activeeon.com/content/groups/proactive/' }
@@ -12,4 +15,21 @@ dependencies {
 
     testCompile 'com.jayway.awaitility:awaitility:1.6.3'
     testCompile 'junit:junit:4.12'
+}
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            snapshotRepository(url: "http://repository.activeeon.com/content/repositories/snapshots/") {
+                authentication(userName: "${System.getProperty('nexusUsername')}",
+                        password: "${System.getProperty('nexusPassword')}")
+            }
+            repository(url: "http://repository.activeeon.com/content/repositories/releases/") {
+                authentication(userName: "${System.getProperty('nexusUsername')}",
+                        password: "${System.getProperty('nexusPassword')}")
+            }
+        }
+    }
 }
