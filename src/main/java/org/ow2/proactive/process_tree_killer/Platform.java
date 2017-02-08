@@ -1,25 +1,27 @@
 /*
- * The MIT License
+ * ProActive Parallel Suite(TM):
+ * The Open Source library for parallel and distributed
+ * Workflows & Scheduling, Orchestration, Cloud Automation
+ * and Big Data Analysis on Enterprise Grids & Clouds.
  *
- * Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi
+ * Copyright (c) 2007 - 2017 ActiveEon
+ * Contact: contact@activeeon.com
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This library is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License
+ * as published by the Free Software Foundation: version 3 of
+ * the License.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * If needed, contact us to obtain a release under GPL Version 2 or 3
+ * or a different license than the AGPL.
  */
 package org.ow2.proactive.process_tree_killer;
 
@@ -36,7 +38,8 @@ import java.util.Locale;
  * @author Kohsuke Kawaguchi
  */
 public enum Platform {
-    WINDOWS(';'),UNIX(':');
+    WINDOWS(';'),
+    UNIX(':');
 
     /**
      * The character that separates paths in environment variables like PATH and CLASSPATH. 
@@ -51,7 +54,8 @@ public enum Platform {
     }
 
     public static Platform current() {
-        if(File.pathSeparatorChar==':') return UNIX;
+        if (File.pathSeparatorChar == ':')
+            return UNIX;
         return WINDOWS;
     }
 
@@ -65,7 +69,8 @@ public enum Platform {
      */
     public static boolean isSnowLeopardOrLater() {
         try {
-            return isDarwin() && new VersionNumber(System.getProperty("os.version")).compareTo(new VersionNumber("10.6"))>=0;
+            return isDarwin() &&
+                   new VersionNumber(System.getProperty("os.version")).compareTo(new VersionNumber("10.6")) >= 0;
         } catch (IllegalArgumentException e) {
             // failed to parse the version
             return false;

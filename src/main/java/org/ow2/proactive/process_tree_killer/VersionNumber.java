@@ -1,3 +1,28 @@
+/*
+ * ProActive Parallel Suite(TM):
+ * The Open Source library for parallel and distributed
+ * Workflows & Scheduling, Orchestration, Cloud Automation
+ * and Big Data Analysis on Enterprise Grids & Clouds.
+ *
+ * Copyright (c) 2007 - 2017 ActiveEon
+ * Contact: contact@activeeon.com
+ *
+ * This library is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License
+ * as published by the Free Software Foundation: version 3 of
+ * the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * If needed, contact us to obtain a release under GPL Version 2 or 3
+ * or a different license than the AGPL.
+ */
 package org.ow2.proactive.process_tree_killer;
 
 /*
@@ -29,6 +54,7 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Stack;
+
 
 /**
  * Immutable representation of a version number based on the Mercury version numbering scheme.
@@ -86,7 +112,7 @@ public class VersionNumber implements Comparable<VersionNumber> {
     private static class WildCardItem implements Item {
 
         public int compareTo(Item item) {
-            if (item==null) // 1.* ( > 1.99) > 1
+            if (item == null) // 1.* ( > 1.99) > 1
                 return 1;
             switch (item.getType()) {
                 case INTEGER_ITEM:
@@ -117,8 +143,7 @@ public class VersionNumber implements Comparable<VersionNumber> {
     /**
      * Represents a numeric item in the version item list.
      */
-    private static class IntegerItem
-            implements Item {
+    private static class IntegerItem implements Item {
         private static final BigInteger BigInteger_ZERO = new BigInteger("0");
 
         private final BigInteger value;
@@ -173,7 +198,7 @@ public class VersionNumber implements Comparable<VersionNumber> {
      * Represents a string in the version item list, usually a qualifier.
      */
     private static class StringItem implements Item {
-        private final static String[] QUALIFIERS = {"snapshot", "alpha", "beta", "milestone", "rc", "", "sp"};
+        private final static String[] QUALIFIERS = { "snapshot", "alpha", "beta", "milestone", "rc", "", "sp" };
 
         private final static List<String> _QUALIFIERS = Arrays.asList(QUALIFIERS);
 
@@ -281,7 +306,7 @@ public class VersionNumber implements Comparable<VersionNumber> {
         }
 
         void normalize() {
-            for (ListIterator iterator = listIterator(size()); iterator.hasPrevious(); ) {
+            for (ListIterator iterator = listIterator(size()); iterator.hasPrevious();) {
                 Item item = (Item) iterator.previous();
                 if (item.isNull()) {
                     iterator.remove(); // remove null trailing items: 0, "", empty list
@@ -335,7 +360,7 @@ public class VersionNumber implements Comparable<VersionNumber> {
 
         public String toString() {
             StringBuilder buffer = new StringBuilder("(");
-            for (Iterator<Item> iter = iterator(); iter.hasNext(); ) {
+            for (Iterator<Item> iter = iterator(); iter.hasNext();) {
                 buffer.append(iter.next());
                 if (iter.hasNext()) {
                     buffer.append(',');

@@ -1,4 +1,33 @@
+/*
+ * ProActive Parallel Suite(TM):
+ * The Open Source library for parallel and distributed
+ * Workflows & Scheduling, Orchestration, Cloud Automation
+ * and Big Data Analysis on Enterprise Grids & Clouds.
+ *
+ * Copyright (c) 2007 - 2017 ActiveEon
+ * Contact: contact@activeeon.com
+ *
+ * This library is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License
+ * as published by the Free Software Foundation: version 3 of
+ * the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * If needed, contact us to obtain a release under GPL Version 2 or 3
+ * or a different license than the AGPL.
+ */
 package org.ow2.proactive.process_tree_killer;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static org.junit.Assert.*;
+import static org.junit.Assume.assumeTrue;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -9,10 +38,6 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 
 import org.junit.Test;
-
-import static com.jayway.awaitility.Awaitility.await;
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
 
 
 public class ProcessTreeTest {
@@ -44,8 +69,7 @@ public class ProcessTreeTest {
 
     @Test
     public void killSingleProcess_UsingEnvironmentVariable() throws Exception {
-        Map<String, String> processTreeKillerCookie =
-                Collections.singletonMap("PROCESS_TREE_KILLER_COOKIE", "42");
+        Map<String, String> processTreeKillerCookie = Collections.singletonMap("PROCESS_TREE_KILLER_COOKIE", "42");
 
         ProcessBuilder processBuilder = createSleepyProcess();
         processBuilder.environment().putAll(processTreeKillerCookie);
@@ -90,8 +114,7 @@ public class ProcessTreeTest {
     public void killProcessTree_EnvironmentVariables_Windows() throws Exception {
         assumeTrue(isWindowsOS());
 
-        Map<String, String> processTreeKillerCookie =
-                Collections.singletonMap("PROCESS_TREE_KILLER_COOKIE", "42");
+        Map<String, String> processTreeKillerCookie = Collections.singletonMap("PROCESS_TREE_KILLER_COOKIE", "42");
 
         ProcessBuilder createProcessTree = createScriptProcess("create_process_tree");
         createProcessTree.environment().putAll(processTreeKillerCookie);
@@ -151,7 +174,7 @@ public class ProcessTreeTest {
     }
 
     private List<ProcessTree.OSProcess> waitChildProcessRunning(final Process process,
-                                                                final int expectedNumberOfChildProcesses) {
+            final int expectedNumberOfChildProcesses) {
 
         await().until(new Callable<Boolean>() {
             @Override
@@ -163,8 +186,8 @@ public class ProcessTreeTest {
         return ProcessTree.get().get(process).getChildren();
     }
 
-    private List<ProcessTree.OSProcess> waitAtLeastNChildProcessRunning(
-      final Map<String, String> environmentVariables, final int atLeastNProcess) {
+    private List<ProcessTree.OSProcess> waitAtLeastNChildProcessRunning(final Map<String, String> environmentVariables,
+            final int atLeastNProcess) {
 
         await().until(new Callable<Boolean>() {
             @Override
@@ -187,7 +210,6 @@ public class ProcessTreeTest {
         }
         return childProcesses;
     }
-
 
     private ProcessBuilder createSleepyProcess() {
         if (isWindowsOS()) {

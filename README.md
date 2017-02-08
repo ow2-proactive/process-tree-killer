@@ -11,9 +11,9 @@ The trick that is used to kill a process including its children is to tag them u
 ```java
 ProcessBuilder pb = new ProcessBuilder("sleep", "10000");
 pb.environment().put("PTK_COOKIE", "killme");
-    
+
 Process process = pb.start();
-    
+
 ProcessTree.get().killAll(singletonMap("PTK_COOKIE", "killme"));
 ```
 ## Acknowledgements
