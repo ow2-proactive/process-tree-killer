@@ -1143,7 +1143,7 @@ public abstract class ProcessTree
                      * Read the remainder of psinfo_t differently depending on whether the
                      * Java process is 32-bit or 64-bit.
                      */
-                    if (Pointer.SIZE == 8) {
+                    if (Native.POINTER_SIZE == 8) {
                         psinfo.seek(236); // offset of pr_argc
                         argc = adjust(psinfo.readInt());
                         argp = adjustL(psinfo.readLong());
