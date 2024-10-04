@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    compile 'commons-io:commons-io:2.4'
+    compile 'commons-io:commons-io:2.14.0'
     compile 'net.java.dev.jna:jna:5.13.0'
     compile 'org.jvnet.winp:winp:1.28-proactive'
 
@@ -55,5 +55,5 @@ uploadArchives {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.13' //version required
+    gradleVersion = '3.3' //version required
 }
